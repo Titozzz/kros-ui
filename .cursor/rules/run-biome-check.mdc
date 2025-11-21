@@ -1,0 +1,13 @@
+---
+description: Always run biome check after making changes to files to ensure code quality.
+globs: **/*.{ts,tsx,js,jsx,json,css}
+---
+
+# Run Biome Check
+
+After making any changes to the codebase (editing, creating, or deleting files), you MUST run `bunx biome check` to ensure there are no linting or formatting errors.
+
+If `biome check` reports any errors, you MUST fix them before considering the task complete.
+
+Usage:
+`bunx biome check`
