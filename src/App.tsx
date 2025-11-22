@@ -40,7 +40,7 @@ export function App() {
 
       <div className="p-4 bg-accent/10 rounded-xl shadow-lg">
         <img
-          src={`/spell_images/sort_${currentSpell.iconId}.png`}
+          src={`/spell_images/compressed/sort_${currentSpell.iconId}.avif`}
           alt={currentSpell.name}
           className="w-32 h-32 object-contain"
           onError={(e) => {
