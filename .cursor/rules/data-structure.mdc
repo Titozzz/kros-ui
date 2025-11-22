@@ -1,0 +1,86 @@
+---
+description: Explanation of the project's data structure, specifically regarding Spells, Variants, Levels, and Effects.
+alwaysApply: true
+---
+# Data Structure Documentation
+
+This document outlines the hierarchy and relationships of the Dofus spell data used in the project.
+
+## Hierarchy Overview
+
+The data is structured in the following hierarchy:
+
+1.  **Spell Variant** (Root)
+2.  **Spell** (Child of Variant)
+3.  **Spell Level** (Child of Spell)
+4.  **Effects** (Child of Spell Level)
+
+## Detailed Structure
+
+### 1. Spell Variant (`SpellVariantData`)
+The top-level container representing a choice between two spells for a specific class (Breed).
+-   **Source**: `src/assets/spells_variants_full.json`
+-   **Key Fields**:
+    -   `id`: Unique identifier for the variant pair.
+    -   `breedId`: Identifier for the character class (e.g., 9 for Cra, 1 for Feca).
+    -   `spells`: An array containing the `Spell` objects (usually 2) involved in this variant.
+
+### 2. Spell (`SpellData`)
+Represents the general definition of a spell, independent of its specific rank/level power.
+-   **Location**: Nested within the `spells` array of a `SpellVariant`.
+-   **Key Fields**:
+    -   `id`: Unique identifier for the spell.
+    -   `name`: Localized name object (e.g., `{ fr: "Flèche Magique" }`).
+    -   `description`: Localized description object.
+    -   `iconId`: Identifier for the spell's icon.
+    -   `spellLevels`: An array of **IDs** (integers) pointing to `SpellLevel` objects.
+    -   *Note*: In the current `spells_variants_full.json`, this object contains metadata but links to Levels by ID only.
+
+### 3. Spell Level (`SpellLevel`)
+Represents a specific rank of a spell (e.g., Rank 1, Rank 2).
+-   **Relationship**: A `Spell` has multiple `SpellLevel`s (usually unlocked at different character levels).
+-   **Current State**: In `spells_variants_full.json`, only the `id`s are present in the `spellLevels` array. The detailed objects are not currently embedded.
+-   **Expected Content** (Extrapolated):
+    -   Grade/Rank info.
+    -   AP Cost.
+    -   Range.
+    -   **Effects**: The list of actions the spell performs.
+
+### 4. Effects (`EffectInstance`)
+Represents the specific mechanical actions of a spell at a given level.
+-   **Relationship**: A `SpellLevel` contains a list of `Effects`.
+-   **Expected Content** (Extrapolated):
+    -   `effectId`: What the effect does (e.g., Damage Earth, Pushback).
+    -   `diceNum` / `diceSide`: Base damage values.
+    -   `value`: Fixed values (e.g., +Range).
+    -   `targetMask`: Who it affects.
+
+## Summary Schema
+
+```json
+[
+  {
+    // Spell Variant
+    "id": 12,
+    "breedId": 9, // Cra
+    "spells": [
+      {
+        // Spell (Base)
+        "id": 13069,
+        "name": { "fr": "Flèche Cinglante" },
+        "spellLevels": [
+          41231, // Level 1 ID
+          44460, // Level 2 ID
+          76807  // Level 3 ID
+        ]
+        // ... SpellLevel data is currently referenced by ID, not embedded
+      },
+      {
+        // Spell (Variant)
+        "id": 14636,
+        "spellLevels": [...]
+      }
+    ]
+  }
+]
+```

@@ -1,6 +1,6 @@
 ---
 description: Always run biome check after making changes to files to ensure code quality.
-globs: **/*.{ts,tsx,js,jsx,json,css}
+globs: **/*.ts,**/*.tsx,**/*.js,**/*.jsx,**/*.json,**/*.css}
 ---
 
 # Run Biome Check

@@ -1,0 +1,13 @@
+---
+description: Enforce manual execution of data retrieval scripts
+globs: scripts/**/*.ts, **/*fetch*.ts
+---
+
+# Manual Execution of Data Retrieval Scripts
+
+When the user asks for a script to retrieve data (e.g., fetching from an API, scraping, database queries):
+1.  Write or provide the script code.
+2.  **Do not** automatically execute the script using `run_terminal_cmd`.
+3.  Instruct the user to run the script manually in their terminal.
+
+This applies to scripts intended to fetch, scrape, or download data, particularly those in the `scripts/` directory or named with `fetch`, `retrieve`, or similar keywords.
